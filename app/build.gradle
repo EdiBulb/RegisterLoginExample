@@ -38,4 +38,6 @@ dependencies {
 
     //병훈 - 영상이랑 다른 버전으로 했음  // 필요한 라이브러리를 설치하는 코드다.
     implementation 'com.android.volley:volley:1.1.1'
+    implementation 'com.android.volley:volley:1.2.1'
+
 }
