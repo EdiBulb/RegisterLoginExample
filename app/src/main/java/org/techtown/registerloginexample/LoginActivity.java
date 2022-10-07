@@ -18,6 +18,7 @@ import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity {
 
+    //위젯 가져오기
     private EditText et_id,et_pass;
     private Button btn_login, btn_register;
 
@@ -27,7 +28,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-
+        //연결하기
         et_id = findViewById(R.id.et_id);
         et_pass = findViewById(R.id.et_pass);
         btn_login = findViewById(R.id.btn_login);
@@ -37,11 +38,13 @@ public class LoginActivity extends AppCompatActivity {
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //로그인 액티비티에서 회원가입 액티비티로 이동하기
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(intent);
             }
         });
 
+        //로그인 버튼 클릭시 수행
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -49,18 +52,22 @@ public class LoginActivity extends AppCompatActivity {
                 String userID = et_id.getText().toString();
                 String userPass = et_pass.getText().toString();
 
+                //로그인 리쉐크스로 아이디 비번을 주고, 리스폰스 리스너로 응답을 돌려받는다..
+                //여기 잘 모르겠음
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
-                    public void onResponse(String response) {
+                    public void onResponse(String response) { //response : JSON 전체 형태가 넘어온 스트링이다.
                         try {
-                            JSONObject jsonObject = new JSONObject(response);
-                            boolean success = jsonObject.getBoolean("success");
+                            JSONObject jsonObject = new JSONObject(response);//response를 JSONObject 안에 넣으면 파싱이 된다.
+                            boolean success = jsonObject.getBoolean("success"); // 여기 잘 모르겠음
                             if(success){//로그인에 성공한 경우
-                                String userID = jsonObject.getString("userID");
-                                String userPass = jsonObject.getString("userPassword");
+                                String userID = jsonObject.getString("userID");//가져온다.
+                                String userPass = jsonObject.getString("userPassword");//변경했음
 
                                 Toast.makeText(getApplicationContext(),"로그인에 성공하였습니다.",Toast.LENGTH_SHORT);
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+
+                                //MainActivity로 넘어갈 때, 데이터를 담아준다.
                                 intent.putExtra("userID",userID);
                                 intent.putExtra("userPass",userPass);
 
@@ -75,6 +82,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     }
                 };
+                //
                 LoginRequest loginRequest = new LoginRequest(userID,userPass,responseListener);
                 RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
                 queue.add(loginRequest);

@@ -15,7 +15,7 @@ public class LoginRequest extends StringRequest {
     final static private String URL = "http://gnsqud24.dothome.co.kr/Login.php";
     private Map<String,String>map;
 
-    //로그인 요청
+    //로그인 요청 - 로그인에 필요한 것만 넣는다.
     public LoginRequest(String userID, String userPassword,Response.Listener<String>listener){
         super(Method.POST, URL,listener,null);
 
