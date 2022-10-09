@@ -20,6 +20,7 @@ public class RegisterRequest extends StringRequest {
 
     //회원가입 요청 - 여기 안에 생성자들을 다 넣어줄 겁니다.
     public RegisterRequest(String userID,String userPassword, String userName, int userAge, Response.Listener<String>listener){//문자열 형태로 쏠 거다.
+        //여기서 php와 연결한다.
         super(Method.POST, URL,listener,null);//포스트 방식으로 할 것이다.
 
         //해시맵 형태로 만들고
