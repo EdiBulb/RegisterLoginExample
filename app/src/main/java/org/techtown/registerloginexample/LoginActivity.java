@@ -28,7 +28,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        //연결하기
+        //위젯 연결하기
         et_id = findViewById(R.id.et_id);
         et_pass = findViewById(R.id.et_pass);
         btn_login = findViewById(R.id.btn_login);
@@ -49,17 +49,20 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //EditText에 현재 입력되어있는 값을 get(가져온다) 해온다.
+                //아이디 값과 패스워드 값
                 String userID = et_id.getText().toString();
                 String userPass = et_pass.getText().toString();
 
                 //로그인 리쉐크스로 아이디 비번을 주고, 리스폰스 리스너로 응답을 돌려받는다..
                 //여기 잘 모르겠음
+                //response 리스너가 뭐지?
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) { //response : JSON 전체 형태가 넘어온 스트링이다.
                         try {
                             JSONObject jsonObject = new JSONObject(response);//response를 JSONObject 안에 넣으면 파싱이 된다.
-                            boolean success = jsonObject.getBoolean("success"); // 여기 잘 모르겠음
+                            boolean success = jsonObject.getBoolean("success"); // boolean 타입으로 바꿔줌
+
                             if(success){//로그인에 성공한 경우
                                 String userID = jsonObject.getString("userID");//가져온다.
                                 String userPass = jsonObject.getString("userPassword");//변경했음
@@ -82,6 +85,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     }
                 };
+                
                 //
                 LoginRequest loginRequest = new LoginRequest(userID,userPass,responseListener);
                 RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
