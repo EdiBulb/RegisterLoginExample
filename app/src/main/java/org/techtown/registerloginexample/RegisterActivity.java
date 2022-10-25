@@ -33,6 +33,7 @@ public class RegisterActivity extends AppCompatActivity {
         et_pass = findViewById(R.id.et_pass);
         et_name = findViewById(R.id.et_name);
         et_age = findViewById(R.id.et_age);
+
         btn_register = findViewById(R.id.btn_register);
 
         //회원가입 버튼 클릭 시 수행
